@@ -4,11 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cfh.practice</groupId>
-    <artifactId>product</artifactId>
+    <artifactId>com.cfh.practice.product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>common</module>
+        <module>server</module>
+        <module>client</module>
+    </modules>
+    <!-- 将product变成父工程 -->
+    <packaging>pom</packaging>
 
-    <name>product</name>
+    <name>com.cfh.practice.product</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>

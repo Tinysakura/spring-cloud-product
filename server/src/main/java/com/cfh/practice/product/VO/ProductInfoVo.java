@@ -1,7 +1,7 @@
 package com.cfh.practice.product.VO;
 
-import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.math.BigDecimal;
 

@@ -2,6 +2,8 @@ package com.cfh.practice.product.service;
 
 import com.cfh.practice.product.dataobject.ProductInfo;
 import com.cfh.practice.product.dto.CartDTO;
+import common.DecreaseStockInput;
+import common.ProductInfoOutput;
 
 import java.util.List;
 
@@ -21,11 +23,11 @@ public interface ProductService {
      * @param productIdList
      * @return
      */
-    List<ProductInfo> findList(List<String> productIdList);
+    List<ProductInfoOutput> findList(List<String> productIdList);
 
     /**
      * 根据购物车信息扣库存
      * @param cartDTOList
      */
-    void decreaseStock(List<CartDTO> cartDTOList);
+    void decreaseStock(List<DecreaseStockInput> cartDTOList);
 }
