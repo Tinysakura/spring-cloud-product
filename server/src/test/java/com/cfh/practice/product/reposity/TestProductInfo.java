@@ -35,13 +35,13 @@ public class TestProductInfo {
 
     @Test
     public void increaseStock(){
-        CartDTO cartDTO = new CartDTO();
-        cartDTO.setProductId("157875196366160022");
-        cartDTO.setProductQuantity(2);
-
-        List<CartDTO> cartDTOS = new ArrayList<>();
-        cartDTOS.add(cartDTO);
-
-        productService.decreaseStock(cartDTOS);
+//        CartDTO cartDTO = new CartDTO();
+//        cartDTO.setProductId("157875196366160022");
+//        cartDTO.setProductQuantity(2);
+//
+//        List<CartDTO> cartDTOS = new ArrayList<>();
+//        cartDTOS.add(cartDTO);
+//
+//        productService.decreaseStock(cartDTOS);
     }
 }

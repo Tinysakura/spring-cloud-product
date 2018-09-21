@@ -9,6 +9,8 @@ import com.cfh.practice.product.dto.CartDTO;
 import com.cfh.practice.product.service.CategoryService;
 import com.cfh.practice.product.service.ProductService;
 import com.cfh.practice.product.utils.ResultVOUtil;
+import common.DecreaseStockInput;
+import common.ProductInfoOutput;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,12 +81,12 @@ public class ProductController {
      * @return
      */
     @PostMapping("/listForOrder")
-    public List<ProductInfo> listForOrder(@RequestBody List<String> productIdList) {
+    public List<ProductInfoOutput> listForOrder(@RequestBody List<String> productIdList) {
         return productService.findList(productIdList);
     }
 
     @PostMapping("/decreaseStock")
-    public void decreaseStock(@RequestBody List<CartDTO> decreaseStockInputList) {
+    public void decreaseStock(@RequestBody List<DecreaseStockInput> decreaseStockInputList) {
         productService.decreaseStock(decreaseStockInputList);
     }
 }
