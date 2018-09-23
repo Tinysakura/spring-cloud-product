@@ -1,16 +1,15 @@
 package com.cfh.practice.product.controller;
 
+import com.cfh.practice.common.DecreaseStockInput;
+import com.cfh.practice.common.ProductInfoOutput;
 import com.cfh.practice.product.VO.ProductInfoVo;
 import com.cfh.practice.product.VO.ProductVO;
 import com.cfh.practice.product.VO.ResultVO;
 import com.cfh.practice.product.dataobject.ProductCategory;
 import com.cfh.practice.product.dataobject.ProductInfo;
-import com.cfh.practice.product.dto.CartDTO;
 import com.cfh.practice.product.service.CategoryService;
 import com.cfh.practice.product.service.ProductService;
 import com.cfh.practice.product.utils.ResultVOUtil;
-import common.DecreaseStockInput;
-import common.ProductInfoOutput;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

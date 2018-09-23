@@ -12,13 +12,33 @@
     <artifactId>product-server</artifactId>
 
     <dependencies>
-        <!-- 添加对common部分的依赖 -->
+        <!-- 添加对product-common部分的依赖 -->
         <dependency>
             <groupId>com.cfh.practice</groupId>
             <artifactId>product-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!--消息通信需要添加order-common部分的依赖-->
+        <dependency>
+            <groupId>com.cfh.practice</groupId>
+            <artifactId>order-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <configuration>
+                    <mainClass>com.cfh.practice.product.ProductApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

@@ -1,19 +1,21 @@
 package com.cfh.practice.product.service.impl;
 
+import com.cfh.practice.common.DecreaseStockInput;
+import com.cfh.practice.common.ProductInfoOutput;
 import com.cfh.practice.product.dataobject.ProductInfo;
-import com.cfh.practice.product.dto.CartDTO;
 import com.cfh.practice.product.enums.ProductStatusEnum;
 import com.cfh.practice.product.enums.ResultEnum;
 import com.cfh.practice.product.exception.ProductException;
 import com.cfh.practice.product.repository.ProductInfoRepository;
 import com.cfh.practice.product.service.ProductService;
-import common.DecreaseStockInput;
-import common.ProductInfoOutput;
+import com.cfh.practice.product.utils.JsonUtil;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +29,9 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductInfoRepository productInfoRepository;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     @Override
     public List<ProductInfo> findUpAll() {
@@ -45,9 +50,26 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
     @Override
     public void decreaseStock(List<DecreaseStockInput> decreaseStockInputs) {
+
+        List<ProductInfo> productInfoList = decreaseStockInDB(decreaseStockInputs);
+
+        //使用lambda表达式将productInfoList转换为productInfoOutputList
+        List<ProductInfoOutput> productInfoOutputList = productInfoList.stream().map(e -> {
+            ProductInfoOutput output = new ProductInfoOutput();
+            BeanUtils.copyProperties(e, output);
+            return output;
+        }).collect(Collectors.toList());
+
+        String message = JsonUtil.obj2String(productInfoOutputList);
+        //rabbitTemplate.convertAndSend("productInfoOutput", message);
+    }
+
+    @Transactional
+    public List<ProductInfo> decreaseStockInDB(List<DecreaseStockInput> decreaseStockInputs){
+        List<ProductInfo> productInfoList = new ArrayList<>();
+
         for (DecreaseStockInput decreaseStockInput : decreaseStockInputs){
             Optional<ProductInfo> cartOption = productInfoRepository.findById(decreaseStockInput.getProductId());
 
@@ -65,7 +87,10 @@ public class ProductServiceImpl implements ProductService {
             }
 
             productInfo.setProductStock(residueStock);
-            productInfoRepository.save(productInfo);
+            //productInfoRepository.save(productInfo);
+            productInfoList.add(productInfo);
         }
+
+        return productInfoList;
     }
 }

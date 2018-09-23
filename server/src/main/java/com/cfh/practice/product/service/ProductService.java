@@ -1,9 +1,8 @@
 package com.cfh.practice.product.service;
 
+import com.cfh.practice.common.DecreaseStockInput;
+import com.cfh.practice.common.ProductInfoOutput;
 import com.cfh.practice.product.dataobject.ProductInfo;
-import com.cfh.practice.product.dto.CartDTO;
-import common.DecreaseStockInput;
-import common.ProductInfoOutput;
 
 import java.util.List;
 
