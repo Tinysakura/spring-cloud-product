@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
@@ -22,12 +23,13 @@ import java.util.Map;
  * @Description: 接受并处理减库存消息
  */
 @Slf4j
+@Component
 public class DecreaseStockReceiver {
 
     @Autowired
     private ProductInfoRepository productInfoRepository;
 
-    @RabbitListener(queues = "decreaseStockQueue", queuesToDeclare = @Queue("decreaseStockQueue"))
+    @RabbitListener(queuesToDeclare = @Queue("decreaseStockQueue"))
     @SendTo("decreaseStockReplyQueue")
     public DecreaseStockReply handleDecreaseStockMessage(OrderDTO orderDTO){
         DecreaseStockReply decreaseStockReply = new DecreaseStockReply();

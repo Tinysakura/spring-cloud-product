@@ -7,24 +7,29 @@ import com.sun.javafx.binding.StringFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * @Author: cfh
- * @Date: 2018/9/22 21:58
- * @Description: 将数据库当前所有商品的库存更新到Redis中
+ * @Date: 2018/9/23 13:12
+ * @Description: 定时更新数据库的实时库存到Redis中
  */
 @Slf4j
-public class PublishStockTask implements Runnable{
-
+@Component
+public class PublishStockTask {
     @Autowired
     private ProductInfoRepository productInfoRepository;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Override
+    /**
+     * 每小时执行一次
+     */
+    @Scheduled(fixedRate = 3600000L)
     public void run() {
         log.info("更新库存到Redis中");
 
